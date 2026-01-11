@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerixa - AI Utility Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #1f2833;
+            --primary-color: #6c63ff; /* Indigo/Purple */
+            --primary-hover: #5a52d5;
+            --accent-color: #45a29e; /* Cyan hint for cyberpunk vibe */
+            --text-main: #ffffff;
+            --text-secondary: #c5c6c7;
+            --glow: 0 0 20px rgba(108, 99, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- Components --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.6);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 100px 0 60px;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0b0c10 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-meta {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .hero-image-placeholder {
+            margin-top: 50px;
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            background: #1f2833;
+            border: 2px solid #333;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            color: #666;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* --- Benefits Section --- */
+        .benefits {
+            padding: 80px 0;
+            background-color: #0f1016;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- Features Grid --- */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: rgba(31, 40, 51, 0.5);
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Tech Specs --- */
+        .specs {
+            padding: 60px 0;
+            background: #0f1016;
+            text-align: center;
+        }
+
+        .specs-box {
+            background: var(--card-bg);
+            display: inline-block;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: left;
+            border: 1px solid #333;
+        }
+
+        .specs-box ul li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .specs-box strong {
+            color: var(--primary-color);
+        }
+
+        /* --- Pricing --- */
+        .pricing {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .pricing-card {
+            background: linear-gradient(145deg, #1f2833, #151b24);
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-color);
+            box-shadow: var(--glow);
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--accent-color);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .price {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        .price span {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .pricing-features li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* --- FAQ --- */
+        .faq {
+            padding: 80px 0;
+            background: #0f1016;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px 20px;
+            max-height: 200px;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+            color: #777;
+        }
+        
+        footer a { color: var(--text-secondary); margin: 0 10px; }
+        footer a:hover { color: var(--primary-color); }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .pricing-card { padding: 30px; }
+            .hero-image-placeholder { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>The All-in-One AI Powerhouse<br>for Your PC.</h1>
+            <p>Transcribe videos, remove backgrounds, upscale images, and more—securely on your device. No monthly fees. No internet required for most tools.</p>
+            
+            <a href="#pricing" class="btn">Get Lifetime Access for $39</a>
+            <div class="hero-meta">Windows 10/11 • DRM-Free • Instant Download</div>
+
+            <div class="hero-image-placeholder">
+                [Insert High-Quality Screenshot of Zerixa Dashboard here]
+            </div>
+        </div>
+    </header>
+
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2 class="section-title">Why Choose Zerixa?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>🚫 No Subscriptions</h3>
+                    <p>Stop paying monthly for simple tools. Pay once, keep it forever.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>🔒 100% Private & Offline</h3>
+                    <p>Your files never leave your computer. AI models run locally on your hardware.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>⚡ Blazing Fast</h3>
+                    <p>Built with Python & C++ for maximum performance without browser lag.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>💼 Commercial License</h3>
+                    <p>Use the output for your client projects without restrictions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">The Tools</h2>
+            <p class="section-subtitle">11+ Premium AI Tools in One Dashboard</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎬</span>
+                    <h4>Video to Text (Whisper AI)</h4>
+                    <p>Convert MP4/MKV to accurate subtitles (SRT/TXT) securely.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🖼️</span>
+                    <h4>Background Remover</h4>
+                    <p>Instantly remove backgrounds from images with one click.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h4>Image Upscaler</h4>
+                    <p>Turn low-res photos into 4K HD masterpieces using AI.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔊</span>
+                    <h4>Noise Reducer</h4>
+                    <p>Clean up background noise from your audio recordings instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📄</span>
+                    <h4>Smart OCR</h4>
+                    <p>Extract text from scanned documents, screenshots, and images.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⬇️</span>
+                    <h4>Video Downloader</h4>
+                    <p>Download videos from supported platforms directly to your PC.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎤</span>
+                    <h4>Text to Speech</h4>
+                    <p>Generate realistic AI voiceovers from your text.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📝</span>
+                    <h4>PDF Tools</h4>
+                    <p>Merge multiple PDFs or convert files easily.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🌍</span>
+                    <h4>Translator</h4>
+                    <p>Translate text between multiple languages offline.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h4>Photo Colorizer (Beta)</h4>
+                    <p>Bring black & white old photos to life with AI colors.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📑</span>
+                    <h4>Text Summarizer</h4>
+                    <p>Condense long articles into short, readable summaries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="specs">
+        <div class="container">
+            <h2 class="section-title">System Requirements</h2>
+            <div class="specs-box">
+                <ul>
+                    <li><strong>OS:</strong> Windows 10 or Windows 11 (64-bit)</li>
+                    <li><strong>Processor:</strong> Intel Core i5 / AMD Ryzen 5 or higher</li>
+                    <li><strong>RAM:</strong> 8 GB minimum (16 GB recommended for Whisper AI)</li>
+                    <li><strong>Storage:</strong> 4 GB free space</li>
+                </ul>
+                <p style="margin-top:20px; font-size: 0.9rem; color: #777;">Note: Internet connection required only for Video Downloader and first-time model setup.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">One Price. Full Access.</h2>
+            <div class="pricing-card">
+                <div class="badge">BEST VALUE</div>
+                <h3>Lifetime License 👑</h3>
+                <div class="price">$39 <span>/ one-time</span></div>
+                
+                <ul class="pricing-features">
+                    <li>✅ Access to all 11+ AI Tools</li>
+                    <li>✅ DRM-Free (No Keys needed)</li>
+                    <li>✅ Install on all personal PCs</li>
+                    <li>✅ Full Commercial Rights</li>
+                    <li>✅ Instant Digital Download</li>
+                </ul>
+
+                <a href="#" class="btn" style="width: 100%;">Buy Now via Buy Me a Coffee</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: Is this a subscription? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">A: No! It is a one-time purchase. You own the software version forever.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Do I need an internet connection? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">A: Most tools (like Background Remover, OCR, Upscaler) work 100% offline. Only the Video Downloader and Translator require an internet connection.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Does it work on Mac? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">A: Currently, Zerixa is built exclusively for Windows 10 and 11.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: What is "Experimental" status? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">A: Tools like the "Video Downloader" depend on third-party platforms (like YouTube). While they work now, we cannot guarantee them forever due to platform updates.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: How do I get the software? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">A: Immediately after payment, you will receive a ZIP file containing the software. No license keys are required—just install and run!</div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 10px;">
+                <a href="#">Support</a> | 
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a>
+            </p>
+            <p>© 2026 Zerixa Soft. Made with ❤️ for Creators.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
