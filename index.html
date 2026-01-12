@@ -39,6 +39,7 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(93, 95, 239, 0.2);
+            background-color: #f3f4f6; /* Placeholder color if image loads slow */
         }
         .img-background {
             position: absolute;
@@ -125,9 +126,9 @@
             </div>
 
             <div class="slider-container" id="comparisonSlider">
-                <div class="img-background" style="background-image: url('https://images.unsplash.com/photo-1517652786967-df5a9a557b7f?q=80&w=1000&auto=format&fit=crop&saturation=-100');"></div>
+                <div class="img-background" style="background-image: url('bw.jpg');"></div>
                 
-                <div class="img-foreground" id="imgForeground" style="background-image: url('https://images.unsplash.com/photo-1517652786967-df5a9a557b7f?q=80&w=1000&auto=format&fit=crop');"></div>
+                <div class="img-foreground" id="imgForeground" style="background-image: url('color.jpg');"></div>
                 
                 <div class="slider-button" id="sliderButton"><i class="fas fa-arrows-alt-h"></i></div>
                 <input type="range" min="0" max="100" value="50" class="slider-range" id="sliderRange" oninput="moveSlider()">
